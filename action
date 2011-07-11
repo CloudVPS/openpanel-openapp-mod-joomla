@@ -2,9 +2,9 @@
 . /var/openpanel/api/sh/module.sh
 
 JoomlaAdmin.update() {
-  userid=$(coreval JoomlaAdmin id)
+  appid=joomla
   newpass=$(coreval JoomlaAdmin password)
-  #authd setuserpass "${userid}" "${newpass}"
+  authd runscript openapp-passwd "$appid" "$newpass"
 }
 
 Module.getconfig() {
