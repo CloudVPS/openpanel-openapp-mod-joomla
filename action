@@ -1,0 +1,23 @@
+#!/bin/bash
+. /var/openpanel/api/sh/module.sh
+
+JoomlaAdmin.update() {
+  userid=$(coreval JoomlaAdmin id)
+  newpass=$(coreval JoomlaAdmin password)
+  #authd setuserpass "${userid}" "${newpass}"
+}
+
+Module.getconfig() {
+  cat << _EOF_
+  <openpanel.module>
+    <dict id="JoomlaAdmin" type="class">
+      <dict id="Admin">
+	    <string id="password">*</string>
+      </dict>
+    </dict>
+  </openpanel.module>
+_EOF_
+  exitquiet
+}
+
+implement OpenAppJoomla.module

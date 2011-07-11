@@ -1,0 +1,15 @@
+Source: openpanel-openapp-mod-joomla
+Section: misc
+Priority: optional
+Maintainer: OpenPanel packager <packages@openpanel.com>
+Build-Depends: debhelper (>= 5), openpanel-dev
+Standards-Version: 3.7.2
+
+Package: openpanel-openapp-mod-joomla
+Architecture: any
+Pre-Depends: openpanel-core, openpanel-authd
+Depends: openpanel-core (>= 0.8.3), openpanel-coreval, openpanel-api-sh, openpanel-openapp-passwd, ${shlibs:Depends}, ${misc:Depends}
+Provides: openpanel-mod-joomla
+Conflicts: openpanel-mod-joomla
+Description: OpenPanel module to manage OpenApp Joomla
+  manage the OpenApp Joomla
