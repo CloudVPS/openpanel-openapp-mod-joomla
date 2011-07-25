@@ -4,7 +4,7 @@
 JoomlaAdmin.update() {
   appid=joomla
   newpass=$(coreval JoomlaAdmin password)
-  authd runscript openapp-passwd "$appid" "$newpass"
+  authd runscript openapp-call "$appid" passwd "$newpass"
 }
 
 Module.getconfig() {

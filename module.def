@@ -50,4 +50,4 @@ class JoomlaAdmin					< uuid 3ac861bb-7539-43d9-ace1-45354727ca9a
 # AUTHD
 # ============================================================================
 authd scripts
-	script	openapp-passwd
+	script	openapp-call
