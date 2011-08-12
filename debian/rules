@@ -18,6 +18,8 @@ install:
 	cp module.xml ${BUILD_ROOT}/var/openpanel/modules/OpenAppJoomla.module/module.xml
 	cp *.png ${BUILD_ROOT}/var/openpanel/modules/OpenAppJoomla.module/
 	install -m 755 verify ${BUILD_ROOT}/var/openpanel/modules/OpenAppJoomla.module/verify
+	mkdir -p ${BUILD_ROOT}/var/openpanel/tools
+	install -m 755 validatepem.py ${BUILD_ROOT}/var/openpanel/tools/validatepem.py
 
 build:
 	mkmodulexml < module.def > module.xml

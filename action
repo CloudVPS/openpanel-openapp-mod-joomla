@@ -48,12 +48,13 @@ HTTPS.create() {
 
 [ -z ${SSLIP} ] && SSLIP="*"
 
-echo ${SSLCERT} | grep -q -- '-----BEGIN CERTIFICATE-----' || fatal "PEM doesn't contain a certificate"
-echo ${SSLCERT} | grep -q -- '-----BEGIN RSA PRIVATE KEY-----' || fatal "PEM doesn't contain a private key"
-
 cat <<EOB > $(pwd)/joomla.pem
 ${SSLCERT}
 EOB
+
+/var/openpanel/tools/validatepem.py $(pwd)/joomla.pem
+
+[ $? -eq 0 ] && exiterror "Your certificate has issues. Is the private key included (and without a passphrase)?"
 
 cat <<EOB > $(pwd)/default-ssl.conf
 <VirtualHost ${SSLIP}:443>
@@ -61,7 +62,7 @@ cat <<EOB > $(pwd)/default-ssl.conf
 
 	SSLEngine on
 	SSLProtocol -all +TLSv1 +SSLv3
-	SSLCertificateFile ${SSLDIR}/cert.pem
+	SSLCertificateFile ${SSLDIR}/joomla.pem
 
     CustomLog /var/log/apache2/access.log combined
     ErrorLog /var/log/apache2/error.log
@@ -73,6 +74,10 @@ EOB
 	authd installfile default-ssl.conf ${A2CONFDIR}
 
 	restart_apache2
+}
+
+HTTPS.update() {
+    HTTPS.create
 }
 
 implement OpenAppJoomla.module
