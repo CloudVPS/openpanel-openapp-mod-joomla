@@ -46,8 +46,62 @@ class JoomlaAdmin					< uuid 3ac861bb-7539-43d9-ace1-45354727ca9a
 								< example sPswd13t
 								< regexp [:password:]
 
+# ----------------------------------------------------------------------------
+class HTTPS						< uuid 9faf996e-1863-4198-a555-a1103eb34b00
+								< version 1
+								< requires JoomlaAdmin
+								< indexing manual
+								< uniquein parent
+								< singleton https
+								< shortname https
+								< title HTTPS Settings
+								< description Enable HTTPS on your Joomla install
+                                < required pem
+								
+								< capabilities create update delete
+								
+	textarea pem				: Certificate for HTTPS
+								< textwidth 48
+								< rows 12
+
+	string ip					: IP address
+								< example 10.20.30.40
+								< flags enabled visible
+								< gridwidth 38
+								< textwidth 18
+								
+
 # ============================================================================
 # AUTHD
 # ============================================================================
 authd scripts
 	script	openapp-call
+# ----------------------------------------------------------------------------
+authd fileops
+	match *.conf				: /etc/apache2/sites-enabled
+								< user root
+								< group root
+								< perms 0644
+
+	match **.conf				: /etc/apache2/conf.d
+								< user root
+								< group root
+								< perms 0644
+
+	match *						: /etc/ssl/private
+								< user root
+								< group ssl-cert
+								< perms 0750
+
+	match joomla.pem			: /etc/ssl/private
+								< user root
+								< group root
+								< perms 0600
+
+	match *						: /var/www/*
+								< user www-data
+								< group www-data
+								< perms 0755
+# ----------------------------------------------------------------------------
+authd services
+	service apache2
