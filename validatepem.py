@@ -31,7 +31,7 @@ def tryverify(pem):
 
 if len(sys.argv) >= 1:
     f = open(sys.argv[1])
-else
+else:
     sys.exit(1)
 
 
