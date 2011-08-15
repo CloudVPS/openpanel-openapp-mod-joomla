@@ -9,8 +9,7 @@ JoomlaAdmin.update() {
   newpass=$(coreval JoomlaAdmin password)
   awstats=$(coreval JoomlaAdmin awstatspass)
   MD5_PWD=$(echo -n ${newpass} | md5sum | cut -f 1 -d ' ')
-  MD5_AWSTATS=$(echo -n ${awstats} | md5sum | cut -f 1 -d ' ')
-  [ -z "${awstats}" ] || authd runscript openapp-call "awstats" passwd "MD5|$MD5_AWSTATS"
+  [ -z "${awstats}" ] || authd runscript openapp-call "awstats" passwd "${awstats}"
   authd runscript openapp-call "$appid" passwd "MD5|$MD5_PWD"
 }
 
