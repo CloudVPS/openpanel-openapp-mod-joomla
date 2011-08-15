@@ -46,7 +46,7 @@ class JoomlaAdmin               < uuid 3ac861bb-7539-43d9-ace1-45354727ca9a
                                 < example sPswd13t
                                 < regexp [:password:]
 
-    awstatspass password        : Awstats password (user 'admin')
+    password awstatspass        : Awstats password (user 'admin')
                                 < textwidth 16
                                 < example sPswd13t
                                 < regexp [:password:]
