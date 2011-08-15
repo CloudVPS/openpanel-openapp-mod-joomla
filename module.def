@@ -70,12 +70,6 @@ class HTTPS                     < uuid 9faf996e-1863-4198-a555-a1103eb34b00
                                 < textwidth 48
                                 < rows 12
 
-    string ip					: IP address
-                                < example 10.20.30.40
-                                < flags enabled visible
-                                < gridwidth 38
-                                < textwidth 18
-								
 
 # ============================================================================
 # AUTHD
