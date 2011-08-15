@@ -10,98 +10,104 @@
 #
 # OpenPanel OpenAppJoomla.module for setting the admin password
 # ============================================================================
-module OpenAppJoomla					< uuid 12086011-ce58-495f-9fb5-0c371adb275b
-								< version 1.0
-								< languages en_EN
-								< apitype commandline
-								< getconfig true
-								< license GPLv3
-								< author OpenPanel
-								< url http://www.openpanel.com/
+module OpenAppJoomla            < uuid 12086011-ce58-495f-9fb5-0c371adb275b
+                                < version 1.0
+                                < languages en_EN
+                                < apitype commandline
+                                < getconfig true
+                                < license GPLv3
+                                < author OpenPanel
+                                < url http://www.openpanel.com/
 	
 # ============================================================================
 # CLASSES
 # ============================================================================
-class JoomlaAdmin					< uuid 3ac861bb-7539-43d9-ace1-45354727ca9a
-								< version 1
-								< indexing manual
-								< uniquein class
-								< shortname joomlaadmin
-								< singleton Admin
-								< title Joomla
-								< description Joomla admin password
-								< sortindex 10
-								< icon user.png
+class JoomlaAdmin               < uuid 3ac861bb-7539-43d9-ace1-45354727ca9a
+                                < version 1
+                                < indexing manual
+                                < uniquein class
+                                < shortname joomlaadmin
+                                < singleton Admin
+                                < title Joomla
+                                < description Joomla admin password
+                                < sortindex 10
+                                < icon user.png
 							
-								< capabilities update
-								< listview id emailaddress
-								< required id password emailaddress
+                                < capabilities update
+                                < listview id emailaddress
+                                < required id password emailaddress
 
-	string id					: Username
-								< example Admin
-								< textwidth 16
+    string id                   : Username
+                                < example Admin
+                                < textwidth 16
 								
-	password password			: Password for 'admin'
-								< textwidth 16
-								< example sPswd13t
-								< regexp [:password:]
+    password password           : Password for 'admin'
+                                < textwidth 16
+                                < example sPswd13t
+                                < regexp [:password:]
+
+    awstatspass password        : Awstats password (user 'admin')
+                                < textwidth 16
+                                < example sPswd13t
+                                < regexp [:password:]
+                                < tooltip Entering a password here will enable awstats for your site. The username is 'admin' and the url is http://example.com/cgi-bin/awstats.pl
 
 # ----------------------------------------------------------------------------
-class HTTPS						< uuid 9faf996e-1863-4198-a555-a1103eb34b00
-								< version 1
-								< requires JoomlaAdmin
-								< indexing manual
-								< uniquein parent
-								< singleton https
-								< shortname https
-								< title HTTPS Settings
-								< description Enable HTTPS on your Joomla install
+class HTTPS                     < uuid 9faf996e-1863-4198-a555-a1103eb34b00
+                                < version 1
+                                < requires JoomlaAdmin
+                                < indexing manual
+                                < uniquein parent
+                                < singleton https
+                                < shortname https
+                                < title HTTPS Settings
+                                < description Enable HTTPS on your Joomla install
                                 < required pem
 								
-								< capabilities create update delete
+                                < capabilities create update delete
 								
-	textarea pem				: Certificate for HTTPS
-								< textwidth 48
-								< rows 12
+    textarea pem				: Certificate for HTTPS
+                                < textwidth 48
+                                < rows 12
 
-	string ip					: IP address
-								< example 10.20.30.40
-								< flags enabled visible
-								< gridwidth 38
-								< textwidth 18
+    string ip					: IP address
+                                < example 10.20.30.40
+                                < flags enabled visible
+                                < gridwidth 38
+                                < textwidth 18
 								
 
 # ============================================================================
 # AUTHD
 # ============================================================================
 authd scripts
-	script	openapp-call
+    script	openapp-call
 # ----------------------------------------------------------------------------
 authd fileops
-	match *.conf				: /etc/apache2/sites-enabled
-								< user root
-								< group root
-								< perms 0644
+    match *.conf                : /etc/apache2/sites-enabled
+                                < user root
+                                < group root
+                                < perms 0644
+                                
+    match **.conf               : /etc/apache2/conf.d
+                                < user root
+                                < group root
+                                < perms 0644
 
-	match **.conf				: /etc/apache2/conf.d
-								< user root
-								< group root
-								< perms 0644
+    match *                     : /etc/ssl/private
+                                < user root
+                                < group ssl-cert
+                                < perms 0750
 
-	match *						: /etc/ssl/private
-								< user root
-								< group ssl-cert
-								< perms 0750
+    match joomla.pem            : /etc/ssl/private
+                                < user root
+                                < group root
+                                < perms 0600
 
-	match joomla.pem			: /etc/ssl/private
-								< user root
-								< group root
-								< perms 0600
-
-	match *						: /var/www/*
-								< user www-data
-								< group www-data
-								< perms 0755
+    match *                     : /var/www/*
+                                < user www-data
+                                < group www-data
+                                < perms 0755
 # ----------------------------------------------------------------------------
 authd services
-	service apache2
+    service apache2
