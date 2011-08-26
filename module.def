@@ -32,6 +32,7 @@ class JoomlaAdmin               < uuid 3ac861bb-7539-43d9-ace1-45354727ca9a
                                 < description Joomla admin password
                                 < sortindex 10
                                 < icon joomla.png
+				< explanation joomla.html
 							
                                 < capabilities update
                                 < listview id emailaddress
